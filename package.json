@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "multer": "^1.4.4",
+    "node-tesseract-ocr": "^2.2.1",
+    "tesseract.js": "^2.1.5"
+  },
+  "name": "ocr",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
