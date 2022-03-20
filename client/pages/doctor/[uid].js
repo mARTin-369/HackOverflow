@@ -24,7 +24,7 @@ const ddashboard = () => {
     if (e.code == "Enter") {
       try {
         const response = await fetch(
-          "https://aef3-120-60-5-199.ngrok.io/api/aadhaar/verify",
+          "url_to_server/api/aadhaar/verify",
           {
             method: "POST",
             body: JSON.stringify(paadhaar),
