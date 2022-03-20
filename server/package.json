@@ -18,7 +18,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.10",
     "swagger-jsdoc": "^6.1.0",
-    "swagger-ui-express": "^4.3.0"
+    "swagger-ui-express": "^4.3.0",
+    "twilio": "^3.75.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"

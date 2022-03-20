@@ -53,6 +53,7 @@ const retailerRouter = require("./routes/retailer");
 const purchaseRouter = require("./routes/purchase");
 const drugRouter = require("./routes/drug");
 const itemRouter = require("./routes/item");
+const otpRouter = require("./routes/otp");
 
 app.use("/api/doctor", doctorsRouter);
 app.use("/api/patient", patientsRouter);
@@ -62,7 +63,7 @@ app.use("/api/retailer", retailerRouter);
 app.use("/api/purchase", purchaseRouter);
 app.use("/api/drug", drugRouter);
 app.use("/api/item", itemRouter);
-
+app.use("/api/otp", otpRouter);
 // UI
 app.get("/", (req, res) => {
   res.send("HackOverflow API");
