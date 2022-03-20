@@ -22,12 +22,19 @@ function generateOTP(otpLength) {
 
 router.post("/send", async (req, res) => {
   // console.log(req.body);
+
   const user = await Aadhaar.findOne({ uid: req.body.uid });
   // Random otp
   const otp = generateOTP(4);
   // Store otp
-  const newOtp = new Otp({ uid: req.body.uid, otp });
-  await newOtp.save();
+  const data = await Otp.findOne({ uid: req.body.uid });
+  if (data != null) {
+    data.otp = otp;
+    await data.save();
+  } else {
+    const newOtp = new Otp({ uid: req.body.uid, otp });
+    await newOtp.save();
+  }
 
   // console.log(user.phone);
   // console.log(otp);
@@ -43,6 +50,7 @@ router.post("/send", async (req, res) => {
       .status(201)
       .json({ result: "Success", message: "OTP sent successfully" });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ result: "Failed", message: "OTP sending failed" });
   }
 });
