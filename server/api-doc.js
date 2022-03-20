@@ -276,7 +276,7 @@ response = {
 
 request = {
   method: "POST",
-  endpoint: "/otp/send",
+  endpoint: "/otp/verify",
   body_json: {
     uid: "357467266338",
     otp: 2345,
