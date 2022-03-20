@@ -66,6 +66,53 @@ response = {
   __v: 0,
 };
 
+////////////////// CREATE PRESCRIPTION FIREBASE IMAGE ///////////////////
+/*
+POST /api/prescription/create HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMzMwNzg0OGY5OTJmMTYyNDI2MjBjYyIsInJvbGUiOjQwMjQsImlhdCI6MTY0Nzc3NTQ2OSwiZXhwIjoxNjQ3Nzc5MDY5fQ.D0QAYe30Mf-jQjOWC_u3DqT4OSHr96pXcoGXy_EB7-w
+Content-Length: 300
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="/C:/Users/marti/Pictures/scene1.png"
+Content-Type: image/png
+
+(data)
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="patient"
+
+965913790963
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+*/
+
+var myHeaders = new Headers();
+myHeaders.append(
+  "Authorization",
+  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMzMwNzg0OGY5OTJmMTYyNDI2MjBjYyIsInJvbGUiOjQwMjQsImlhdCI6MTY0Nzc3NTQ2OSwiZXhwIjoxNjQ3Nzc5MDY5fQ.D0QAYe30Mf-jQjOWC_u3DqT4OSHr96pXcoGXy_EB7-w"
+);
+
+var formdata = new FormData();
+formdata.append(
+  "image",
+  fileInput.files[0],
+  "/C:/Users/marti/Pictures/scene1.png"
+);
+formdata.append("patient", "965913790963");
+
+var requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: formdata,
+  redirect: "follow",
+};
+
+fetch("http://localhost:3000/api/prescription/create", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+
 //////////////////    RETAILER LOGIN       /////////////////////////
 
 request = {

@@ -4,6 +4,23 @@ const Patient = require("../models/patient");
 const Prescription = require("../models/prescription");
 const { authenticateToken, userAuth, ROLES } = require("../middleware");
 
+const { v4: uuidv4 } = require("uuid");
+const path = require("path");
+const multer = require("multer");
+const upload = multer({ storage: multer.memoryStorage() });
+
+var firebaseAdmin = require("firebase-admin");
+
+var serviceAccount = require("../serviceAccountKey.json");
+
+const admin = firebaseAdmin.initializeApp({
+  credential: firebaseAdmin.credential.cert(serviceAccount),
+});
+const storageRef = admin.storage().bucket(process.env.BUCKET_URL);
+const bucketName = "hackoverflow-e1e75.appspot.com";
+
+router.post("/upload", upload.single("image"), async (req, res) => {});
+
 router.get(
   "/",
   authenticateToken,
@@ -78,16 +95,28 @@ router.post(
   "/create",
   authenticateToken,
   userAuth([ROLES.DOCTOR]),
+  upload.single("image"),
   async (req, res) => {
     //   console.log(req.body);
-    const prescription = new Prescription({
-      doctor: req.user.id,
-      image: req.body.image,
-    });
-
     const patient = await Patient.findOne({ uid: req.body.patient });
     if (patient != null) {
       try {
+        // console.log(req.file.originalname);
+        // console.log(path.extname(req.file.originalname));
+        const fileName = uuidv4() + path.extname(req.file.originalname);
+        await storageRef
+          .file(fileName)
+          .createWriteStream()
+          .end(req.file.buffer);
+
+        const imgUrl = `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/${fileName}?alt=media`;
+        // console.log(imgUrl);
+
+        const prescription = new Prescription({
+          doctor: req.user.id,
+          image: imgUrl,
+        });
+
         const new_prescription = await prescription.save();
         patient.prescriptions.push(new_prescription._id);
         await patient.save();
