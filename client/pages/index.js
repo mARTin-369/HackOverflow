@@ -16,7 +16,7 @@ export default function Home() {
 
   const handleChemSubmit = async () => {
     try {
-      const response = await fetch("url_to_server/api/retailer/login", {
+      const response = await fetch("https://hackoverflow.herokuapp.com/api/retailer/login", {
         method: "POST",
         body: JSON.stringify(chemID),
         headers: {
@@ -38,7 +38,7 @@ export default function Home() {
 
   const handleDocSubmit = async () => {
     try {
-      const response = await fetch("url_to_server/api/doctor/login", {
+      const response = await fetch("https://hackoverflow.herokuapp.com/api/doctor/login", {
         method: "POST",
         body: JSON.stringify(values),
         headers: {

@@ -76,6 +76,7 @@ const ddashboard = () => {
         capture="user"
         onChange={handlePrescription}
         accept="image/*"
+        value={prescription}
       />
       <Button
         isDisabled={!patient.phone || !patient.age || !prescription}
